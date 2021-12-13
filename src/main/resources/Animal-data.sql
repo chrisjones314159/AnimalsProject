@@ -1,4 +1,4 @@
-INSERT INTO `cat` (
+INSERT INTO `animal` (
     `name`,
 	`age`,
 	`colour`,
