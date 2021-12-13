@@ -1,8 +1,13 @@
 package com.bae.animals.web;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +21,7 @@ import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
+
 
 import com.bae.animals.domain.Animal;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,7 +52,7 @@ public class AnimalControllerIntegrationTest {
 		String testAnimalAsJSON = this.mapper.writeValueAsString(testAnimal);
 		RequestBuilder req = post("/create").contentType(MediaType.APPLICATION_JSON).content(testAnimalAsJSON);
 		
-		Animal testCreatedAnimal = new Animal(1, "bird", 50, "blue", true);
+		Animal testCreatedAnimal = new Animal(2, "bird", 50, "blue", true);
 		String testCreatedAnimalAsJSON = this.mapper.writeValueAsString(testCreatedAnimal);
 		ResultMatcher checkStatus = status().isCreated(); // is status 201 created
 		ResultMatcher checkBody = content().json(testCreatedAnimalAsJSON); // does the body match my testCreateCatAsJSON
@@ -55,12 +61,73 @@ public class AnimalControllerIntegrationTest {
 		this.mvc.perform(req).andExpect(checkStatus).andExpect(checkBody);
 	}
 	
+	@Test
+	void getAllTest() throws Exception {
+		List<Animal> testAnimals = List.of(new Animal(1, "kangaroo", 15, "brown", true));
+		String json = this.mapper.writeValueAsString(testAnimals);
+		
+		
+		RequestBuilder req = get("/getAll");
+		
+		ResultMatcher checkStatus = status().isOk();
+		ResultMatcher checkBody = content().json(json);
+		
+		this.mvc.perform(req).andExpect(checkStatus).andExpect(checkBody);
+	}
+	
+	
+	@Test
+	void getAnimalTest() throws Exception {
+		Animal testAnimal = new Animal(1, "kangaroo", 15, "brown", true);
+		String json = this.mapper.writeValueAsString(testAnimal);
+		
+		RequestBuilder req = get("/get/1");
+		
+		ResultMatcher checkStatus = status().isOk();
+		ResultMatcher checkBody = content().json(json);
+		
+		this.mvc.perform(req).andExpect(checkStatus).andExpect(checkBody);
+		}
 	
 	
 	
+	@Test
+	void getAnimalByNameTest() throws Exception {
+		List<Animal> testAnimal = List.of(new Animal(1, "kangaroo", 15, "brown", true));
+		String json = this.mapper.writeValueAsString(testAnimal);
+		
+		RequestBuilder req = get("/getByName/kangaroo");
+		
+		ResultMatcher checkStatus = status().isOk();
+		ResultMatcher checkBody = content().json(json);
+		
+		this.mvc.perform(req).andExpect(checkStatus).andExpect(checkBody);
+		}
+	
+	@Test
+	void replaceTest() throws Exception {
+		Animal testAnimal = new Animal("dog", 4, "brown", true);
+		String testAnimalAsJSON = this.mapper.writeValueAsString(testAnimal);
+		RequestBuilder req = put("/replace/1").contentType(MediaType.APPLICATION_JSON).content(testAnimalAsJSON);
+		
+		Animal testCreatedAnimal = new Animal(1, "dog", 4, "brown", true);
+		String testCreatedAnimalAsJSON = this.mapper.writeValueAsString(testCreatedAnimal);
+		ResultMatcher checkStatus = status().isAccepted(); // is status 201 created
+		ResultMatcher checkBody = content().json(testCreatedAnimalAsJSON); // does the body match my testCreateCatAsJSON
+		
+		// sends request - checks the status- checks the body
+		this.mvc.perform(req).andExpect(checkStatus).andExpect(checkBody);
+	}
 	
 	
-	
+	@Test
+	void deleteTest() throws Exception {
+		RequestBuilder req = delete("/remove/1");
+		
+		ResultMatcher checkStatus = status().isNoContent();
+		
+		this.mvc.perform(req).andExpect(checkStatus);
+	}
 	
 	
 	
