@@ -48,11 +48,11 @@ public class AnimalControllerIntegrationTest {
 	
 	@Test
 	void testCreate() throws Exception {
-		Animal testAnimal = new Animal("bird", 50, "blue", true);
+		Animal testAnimal = new Animal("bird", 50, "blue", true, "test.png");
 		String testAnimalAsJSON = this.mapper.writeValueAsString(testAnimal);
 		RequestBuilder req = post("/create").contentType(MediaType.APPLICATION_JSON).content(testAnimalAsJSON);
 		
-		Animal testCreatedAnimal = new Animal(2, "bird", 50, "blue", true);
+		Animal testCreatedAnimal = new Animal(2, "bird", 50, "blue", true, "test.png");
 		String testCreatedAnimalAsJSON = this.mapper.writeValueAsString(testCreatedAnimal);
 		ResultMatcher checkStatus = status().isCreated(); // is status 201 created
 		ResultMatcher checkBody = content().json(testCreatedAnimalAsJSON); // does the body match my testCreateCatAsJSON
@@ -63,7 +63,7 @@ public class AnimalControllerIntegrationTest {
 	
 	@Test
 	void getAllTest() throws Exception {
-		List<Animal> testAnimals = List.of(new Animal(1, "kangaroo", 15, "brown", true));
+		List<Animal> testAnimals = List.of(new Animal(1, "kangaroo", 15, "brown", true, "test.png"));
 		String json = this.mapper.writeValueAsString(testAnimals);
 		
 		
@@ -78,7 +78,7 @@ public class AnimalControllerIntegrationTest {
 	
 	@Test
 	void getAnimalTest() throws Exception {
-		Animal testAnimal = new Animal(1, "kangaroo", 15, "brown", true);
+		Animal testAnimal = new Animal(1, "kangaroo", 15, "brown", true, "test.png");
 		String json = this.mapper.writeValueAsString(testAnimal);
 		
 		RequestBuilder req = get("/get/1");
@@ -93,7 +93,7 @@ public class AnimalControllerIntegrationTest {
 	
 	@Test
 	void getAnimalByNameTest() throws Exception {
-		List<Animal> testAnimal = List.of(new Animal(1, "kangaroo", 15, "brown", true));
+		List<Animal> testAnimal = List.of(new Animal(1, "kangaroo", 15, "brown", true, "test.png"));
 		String json = this.mapper.writeValueAsString(testAnimal);
 		
 		RequestBuilder req = get("/getByName/kangaroo");
@@ -106,11 +106,11 @@ public class AnimalControllerIntegrationTest {
 	
 	@Test
 	void replaceTest() throws Exception {
-		Animal testAnimal = new Animal("dog", 4, "brown", true);
+		Animal testAnimal = new Animal("dog", 4, "brown", true, "test.png");
 		String testAnimalAsJSON = this.mapper.writeValueAsString(testAnimal);
 		RequestBuilder req = put("/replace/1").contentType(MediaType.APPLICATION_JSON).content(testAnimalAsJSON);
 		
-		Animal testCreatedAnimal = new Animal(1, "dog", 4, "brown", true);
+		Animal testCreatedAnimal = new Animal(1, "dog", 4, "brown", true, "test.png");
 		String testCreatedAnimalAsJSON = this.mapper.writeValueAsString(testCreatedAnimal);
 		ResultMatcher checkStatus = status().isAccepted(); // is status 201 created
 		ResultMatcher checkBody = content().json(testCreatedAnimalAsJSON); // does the body match my testCreateCatAsJSON
