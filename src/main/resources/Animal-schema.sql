@@ -5,5 +5,6 @@ CREATE TABLE `animal` (
 	`name` VARCHAR(255) NOT NULL, 
 	`age` INTEGER, 
 	`colour` VARCHAR(255) NOT NULL, 
-	`is_cute` BOOLEAN
+	`is_cute` BOOLEAN,
+	`image_url` VARCHAR(10000) NOT NULL
 );

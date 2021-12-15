@@ -47,6 +47,7 @@ public class AnimalService {
 		existing.setAge(newAnimal.getAge());
 		existing.setColour(newAnimal.getColour());
 		existing.setCute(newAnimal.isCute());
+		existing.setImageUrl(newAnimal.getImageUrl());
 		
 		Animal updated = this.repo.save(existing);
 

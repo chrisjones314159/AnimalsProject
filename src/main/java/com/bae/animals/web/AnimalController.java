@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bae.animals.domain.Animal;
 import com.bae.animals.service.AnimalService;
 
+@CrossOrigin
 @RestController
 
 public class AnimalController {
@@ -56,8 +58,7 @@ public class AnimalController {
 	
 	@GetMapping("/getByName/{name}")
 	public ResponseEntity<List<Animal>> getAnimalByName(@PathVariable String name) {
-		List<Animal> found = this.service.getAllAnimalsByName(name);
-		return ResponseEntity.ok(found);
+		return ResponseEntity.ok(this.service.getAllAnimalsByName(name));
 	}
 
 	@PutMapping("/replace/{id}") // 202 - Accepted

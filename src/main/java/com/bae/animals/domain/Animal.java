@@ -28,6 +28,8 @@ public class Animal {
 	
 	@Column(nullable = false)
 	private boolean isCute;
+	
+	private String imageUrl;
 
 	
 	
@@ -39,24 +41,26 @@ public class Animal {
 	}
 
 
-	public Animal(String name, int age, String colour, boolean isCute) {
+	public Animal(String name, int age, String colour, boolean isCute, String imageUrl) {
 		super();
 		this.name = name;
 		this.age = age;
 		this.colour = colour;
 		this.isCute = isCute;
+		this.imageUrl = imageUrl;
 	}
 
 
 	
 	
-	public Animal(Integer id, String name, int age, String colour, boolean isCute) {
+	public Animal(Integer id, String name, int age, String colour, boolean isCute, String imageUrl) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.age = age;
 		this.colour = colour;
 		this.isCute = isCute;
+		this.imageUrl = imageUrl;
 	}
 
 
@@ -115,6 +119,14 @@ public class Animal {
 		this.isCute = isCute;
 	}
 
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
 	
 	
@@ -122,10 +134,13 @@ public class Animal {
 	
 	
 	
+	
+	
+
 	@Override
 	public String toString() {
 		return "Animal [id=" + id + ", name=" + name + ", age=" + age + ", colour=" + colour + ", isCute=" + isCute
-				+ "]";
+				+ ", imageUrl=" + imageUrl + "]";
 	}
 
 
