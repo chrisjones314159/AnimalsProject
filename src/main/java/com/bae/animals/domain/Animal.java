@@ -1,6 +1,6 @@
 package com.bae.animals.domain;
 
-import java.util.Objects;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +13,7 @@ public class Animal {
 
 	
 	
+	// Variables
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -34,7 +35,7 @@ public class Animal {
 	
 	
 	
-	
+	// Constructors; 1 empty, 1 without id and 1 with id
 	public Animal() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -68,7 +69,7 @@ public class Animal {
 	
 	
 	
-	
+	// Getters and Setters 
 	
 	public Integer getId() {
 		return id;
@@ -137,31 +138,7 @@ public class Animal {
 	
 	
 
-	@Override
-	public String toString() {
-		return "Animal [id=" + id + ", name=" + name + ", age=" + age + ", colour=" + colour + ", isCute=" + isCute
-				+ ", imageUrl=" + imageUrl + "]";
-	}
-
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(age, colour, id, isCute, name);
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Animal other = (Animal) obj;
-		return age == other.age && Objects.equals(colour, other.colour) && Objects.equals(id, other.id)
-				&& isCute == other.isCute && Objects.equals(name, other.name);
-	}
+	
 	
 	
 	

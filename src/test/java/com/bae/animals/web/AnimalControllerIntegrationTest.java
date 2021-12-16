@@ -26,9 +26,8 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import com.bae.animals.domain.Animal;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-//boots the entire context - random port to avoid collisions
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc // sets up the MockMvc object
+@AutoConfigureMockMvc 
 @Sql(scripts = { "classpath:Animal-schema.sql",
 "classpath:Animal-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 
@@ -45,7 +44,7 @@ public class AnimalControllerIntegrationTest {
 	
 	
 	
-	
+	// Tests for each method used in AnimalConntroller class
 	@Test
 	void testCreate() throws Exception {
 		Animal testAnimal = new Animal("bird", 50, "blue", true, "test.png");
@@ -54,10 +53,9 @@ public class AnimalControllerIntegrationTest {
 		
 		Animal testCreatedAnimal = new Animal(2, "bird", 50, "blue", true, "test.png");
 		String testCreatedAnimalAsJSON = this.mapper.writeValueAsString(testCreatedAnimal);
-		ResultMatcher checkStatus = status().isCreated(); // is status 201 created
-		ResultMatcher checkBody = content().json(testCreatedAnimalAsJSON); // does the body match my testCreateCatAsJSON
+		ResultMatcher checkStatus = status().isCreated(); 
+		ResultMatcher checkBody = content().json(testCreatedAnimalAsJSON); 
 		
-		// sends request - checks the status- checks the body
 		this.mvc.perform(req).andExpect(checkStatus).andExpect(checkBody);
 	}
 	
@@ -112,10 +110,9 @@ public class AnimalControllerIntegrationTest {
 		
 		Animal testCreatedAnimal = new Animal(1, "dog", 4, "brown", true, "test.png");
 		String testCreatedAnimalAsJSON = this.mapper.writeValueAsString(testCreatedAnimal);
-		ResultMatcher checkStatus = status().isAccepted(); // is status 201 created
-		ResultMatcher checkBody = content().json(testCreatedAnimalAsJSON); // does the body match my testCreateCatAsJSON
+		ResultMatcher checkStatus = status().isAccepted(); 
+		ResultMatcher checkBody = content().json(testCreatedAnimalAsJSON); 
 		
-		// sends request - checks the status- checks the body
 		this.mvc.perform(req).andExpect(checkStatus).andExpect(checkBody);
 	}
 	

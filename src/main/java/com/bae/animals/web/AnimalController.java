@@ -51,7 +51,7 @@ public class AnimalController {
 		return ResponseEntity.ok(this.service.getAllAnimals());
 	}
 
-	@GetMapping("/get/{id}") // 200
+	@GetMapping("/get/{id}") // 200 - OK
 	public Animal getAnimal(@PathVariable Integer id) {
 		return this.service.getAnimal(id);
 	}
